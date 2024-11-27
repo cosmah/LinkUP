@@ -23,7 +23,7 @@ const Login = () => {
     }
     if (email === 'user@example.com' && password === 'password') {
       login(email);
-      navigate('/profile');
+      navigate('/user-profile');
     }
   };
 

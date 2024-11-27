@@ -27,7 +27,7 @@ const Registeration = () => {
     if (email === 'user@example.com') {
       setError('Email already in use');
     } else {
-      navigate('/profile'); // Redirect to dashboard on successful signup
+      navigate('/user-profile'); // Redirect to dashboard on successful signup
     }
   };
 
