@@ -1,20 +1,25 @@
+import { useParams } from 'react-router-dom';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin, Clock, Tag, Users, Star } from 'lucide-react';
-import { Event } from '@/types/event';
+
 import { format } from 'date-fns';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-// import { Link } from '../ui/link';
-import { Link } from 'react-router-dom';
+import { events } from '@/data/events'; // Import your events data
 
-
-interface EventCardProps {
-  event: Event;
+interface EventDetailsProps {
   featured?: boolean;
 }
 
-export function EventCard({ event, featured }: EventCardProps) {
+const EventDetails = ({ featured }: EventDetailsProps) => {
+  const { id } = useParams<{ id: string }>();
+  const event = events.find((event) => event.id === id);
+
+  if (!event) {
+    return <div>Event not found</div>;
+  }
+
   return (
     <Card className={`overflow-hidden transition-all hover:shadow-lg ${featured ? 'border-primary' : ''}`}>
       <div className="aspect-video relative overflow-hidden">
@@ -76,9 +81,13 @@ export function EventCard({ event, featured }: EventCardProps) {
             </div>
           ))}
         </div>
-        <Link to={`/event-details/${event.id}`}><Button className="w-full">View Details</Button></Link>
-        
+        <div className="flex gap-2">
+            <Button variant="secondary">Share</Button>
+            <Button variant="secondary">Save</Button>
+        </div>
       </CardFooter>
     </Card>
   );
-}
+};
+
+export default EventDetails;
