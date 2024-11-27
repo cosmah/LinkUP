@@ -1,0 +1,58 @@
+import { Event } from '@/types/event';
+
+export const events: Event[] = [
+  {
+    id: '1',
+    title: 'Summer Music Festival',
+    description: 'A three-day music festival featuring top artists from around the world.',
+    date: '2024-07-15',
+    time: '16:00',
+    location: 'Central Park',
+    category: 'music',
+    image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3',
+    price: 149.99,
+    tags: ['music', 'festival', 'outdoor', 'summer'],
+    attendees: 1250,
+    organizer: {
+      name: 'EventWave Productions',
+      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e',
+    },
+    featured: true,
+  },
+  {
+    id: '2',
+    title: 'Tech Innovation Summit',
+    description: 'Join industry leaders for insights into the latest technology trends.',
+    date: '2024-06-20',
+    time: '09:00',
+    location: 'Convention Center',
+    category: 'technology',
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87',
+    price: 299.99,
+    tags: ['technology', 'business', 'networking'],
+    attendees: 850,
+    organizer: {
+      name: 'TechHub Events',
+      image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef',
+    },
+    featured: true,
+  },
+  {
+    id: '3',
+    title: 'Food & Wine Festival',
+    description: 'Experience culinary delights from renowned chefs and wineries.',
+    date: '2024-08-05',
+    time: '12:00',
+    location: 'Riverfront Plaza',
+    category: 'food',
+    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1',
+    price: 89.99,
+    tags: ['food', 'wine', 'culinary'],
+    attendees: 650,
+    organizer: {
+      name: 'Culinary Arts Society',
+      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80',
+    },
+    featured: true,
+  },
+];
