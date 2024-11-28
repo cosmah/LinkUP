@@ -16,7 +16,7 @@ export function Header() {
 
   const handleCreateEventClick = () => {
     if (isLoggedIn) {
-      navigate("/");
+      navigate("/user-profile");
     } else {
       navigate("/login");
     }
@@ -55,7 +55,7 @@ export function Header() {
             <nav className="flex items-center gap-4">
               <Link to="#explore">Explore</Link>
               <Link to="#featured">Featured</Link>
-              <Button onClick={handleCreateEventClick}>Create Event</Button>
+              <Button onClick={handleCreateEventClick}>User Profile</Button>
               {isLoggedIn && <Button onClick={handleLogout}>Logout</Button>}
             </nav>
           )}
@@ -79,9 +79,7 @@ export function Header() {
                   </Button>
                 </Link>
               )}
-              <Button onClick={handleCreateEventClick} className="w-full">
-                Create Event
-              </Button>
+             
             </div>
             {isLoggedIn && (
               <Button onClick={handleLogout} className="w-full">

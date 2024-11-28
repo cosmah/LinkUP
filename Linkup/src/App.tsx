@@ -90,7 +90,7 @@ function App() {
                     
                     {filteredEvents.length === 0 && (
                       <div className="text-center py-12">
-                        <p className="text-muted-foreground">No events found matching your criteria.</p>
+                        <p className="text-muted-foreground">No events found matching your criteria. Please refresh the page to get more suggestions</p>
                       </div>
                     )}
                   </section>
