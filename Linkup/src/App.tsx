@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import EventPopup from './EventPopup';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Header } from '@/components/layout/Header';
 import { EventFilters } from '@/components/filters/EventFilters';
 import { FeaturedEvents } from '@/components/events/FeaturedEvents';
@@ -14,6 +14,24 @@ import Login from './components/auth/signIn/Login';
 import { AuthProvider } from '@/context/AuthContext';
 import Profile from './components/user/Profile';
 import { useMediaQuery } from 'react-responsive';
+
+function ScrollToSection() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      const sectionId = location.hash.replace('#', '');
+      if (sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+  }, [location]);
+
+  return null;
+}
 
 function App() {
   const [showPopup, setShowPopup] = useState(true);
@@ -62,13 +80,13 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToSection />
         <div className="min-h-screen bg-background">
           {showPopup && <EventPopup onClose={handlePopupClose} />}
           <Header />
           
           <Routes>
             <Route path="/" element={
-            
               <>
                 {/* Show FeaturedEvents only if no user interests are selected */}
                 {userInterests.length === 0 && <FeaturedEvents events={events} />}
@@ -94,11 +112,13 @@ function App() {
                       </div>
                     )}
                   </section>
+                  <section id="featured" className="space-y-8">
+                    <h2 className={`text-${isMobile ? '2xl' : '3xl'} font-bold`}>Featured Events</h2>
+                    <FeaturedEvents events={events} />
+                  </section>
                 </main>
               </>
             } />
-            
-           
             <Route path="/event-details/:id" element={<EventDetails />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Registeration />} />

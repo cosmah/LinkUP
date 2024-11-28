@@ -1,11 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Users } from "lucide-react";
+import { Users, User } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
 import { useAuth } from "@/context/AuthContext";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
-import { User } from "lucide-react";
 
 export function Header() {
   const { isLoggedIn, logout } = useAuth();
@@ -30,6 +29,10 @@ export function Header() {
   // Media query for mobile devices
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
+  const handleNavigate = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 py-4">
@@ -53,8 +56,8 @@ export function Header() {
             </>
           ) : (
             <nav className="flex items-center gap-4">
-              <Link to="#explore">Explore</Link>
-              <Link to="#featured">Featured</Link>
+              <Button onClick={() => handleNavigate("/#explore")}>Explore</Button>
+              <Button onClick={() => handleNavigate("/#featured")}>Featured</Button>
               <Button onClick={handleCreateEventClick}>User Profile</Button>
               {isLoggedIn && <Button onClick={handleLogout}>Logout</Button>}
             </nav>
@@ -64,22 +67,19 @@ export function Header() {
         {/* Mobile Menu */}
         {isMobile && isMenuOpen && (
           <nav className="flex flex-col mt-4 space-y-2">
-            <Link to="#explore" onClick={() => setIsMenuOpen(false)}>
+            <Button onClick={() => { handleNavigate("/#explore"); setIsMenuOpen(false); }}>
               Explore
-            </Link>
-            <Link to="#featured" onClick={() => setIsMenuOpen(false)}>
+            </Button>
+            <Button onClick={() => { handleNavigate("/#featured"); setIsMenuOpen(false); }}>
               Featured
-            </Link>
+            </Button>
             <div className="flex items-center space-x-4">
               {isLoggedIn && (
-                <Link to="/user-profile" className="w-full">
-                  <Button className="w-full flex items-center justify-center">
-                    <User className="w-4 h-4 mr-2" />
-                    User Profile
-                  </Button>
-                </Link>
+                <Button onClick={() => { handleNavigate("/user-profile"); setIsMenuOpen(false); }} className="w-full flex items-center justify-center">
+                  <User className="w-4 h-4 mr-2" />
+                  User Profile
+                </Button>
               )}
-             
             </div>
             {isLoggedIn && (
               <Button onClick={handleLogout} className="w-full">
