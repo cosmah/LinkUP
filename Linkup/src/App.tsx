@@ -53,6 +53,8 @@ function App() {
     dateRange: [null, null],
   });
 
+  const isFilterApplied = filters.search !== '' || filters.category !== null;
+
   const filteredEvents = events.filter((event) => {
     const matchesSearch =
       filters.search === '' || 
@@ -69,7 +71,7 @@ function App() {
       (new Date(event.date) >= filters.dateRange[0] && new Date(event.date) <= filters.dateRange[1]);
 
     const matchesUserInterests =
-      userInterests.length === 0 || userInterests.includes(event.category);
+      isFilterApplied || userInterests.length === 0 || userInterests.includes(event.category);
 
     return matchesSearch && matchesCategory && matchesPrice && matchesDate && matchesUserInterests;
   });
@@ -88,9 +90,6 @@ function App() {
           <Routes>
             <Route path="/" element={
               <>
-                {/* Show FeaturedEvents only if no user interests are selected */}
-                {userInterests.length === 0 && <FeaturedEvents events={events} />}
-            
                 <main className={`container mx-auto ${isMobile ? 'px-2' : 'px-4'} py-8`}>
                   <section id="explore" className="space-y-8">
                     <h2 className={`text-${isMobile ? '2xl' : '3xl'} font-bold`}>Explore Events</h2>
@@ -101,16 +100,16 @@ function App() {
                     />
             
                     <div className={`grid grid-cols-1 ${isTablet ? 'md:grid-cols-2' : 'lg:grid-cols-3'} gap-6`}>
-                      {filteredEvents.map((event) => (
-                        <EventCard key={event.id} event={event} />
-                      ))}
+                      {filteredEvents.length > 0 ? (
+                        filteredEvents.map((event) => (
+                          <EventCard key={event.id} event={event} />
+                        ))
+                      ) : (
+                        events.map((event) => (
+                          <EventCard key={event.id} event={event} />
+                        ))
+                      )}
                     </div>
-                    
-                    {filteredEvents.length === 0 && (
-                      <div className="text-center py-12">
-                        <p className="text-muted-foreground">No events found matching your criteria. Please refresh the page to get more suggestions</p>
-                      </div>
-                    )}
                   </section>
                   <section id="featured" className="space-y-8">
                     <h2 className={`text-${isMobile ? '2xl' : '3xl'} font-bold`}>Featured Events</h2>

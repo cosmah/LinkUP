@@ -10,7 +10,7 @@ export const events: Event[] = [
     location: 'Central Park',
     category: 'music',
     image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3',
-    price: 149.99,
+    price: 200000,
     tags: ['music', 'festival', 'outdoor', 'summer'],
     attendees: 1250,
     organizer: {
@@ -28,7 +28,7 @@ export const events: Event[] = [
     location: 'Convention Center',
     category: 'technology',
     image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87',
-    price: 299.99,
+    price: 150000,
     tags: ['technology', 'business', 'networking'],
     attendees: 850,
     organizer: {
@@ -46,7 +46,7 @@ export const events: Event[] = [
     location: 'Riverfront Plaza',
     category: 'food',
     image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1',
-    price: 89.99,
+    price: 50000,
     tags: ['food', 'wine', 'culinary'],
     attendees: 650,
     organizer: {
@@ -65,7 +65,7 @@ export const events: Event[] = [
       location: 'Rooftop Lounge',
       category: 'music',
       image: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0',
-      price: 45.00,
+      price: 25000,
       tags: ['music', 'jazz', 'nightlife'],
       attendees: 300,
       organizer: {
@@ -84,7 +84,7 @@ export const events: Event[] = [
       location: 'City Park',
       category: 'sports',
       image: 'https://images.unsplash.com/photo-1521205309350-1f3e8c2b5c6e',
-      price: 30.00,
+      price: 30000,
       tags: ['sports', 'marathon', 'running'],
       attendees: 2000,
       organizer: {
@@ -103,7 +103,7 @@ export const events: Event[] = [
       location: 'Downtown Square',
       category: 'arts',
       image: 'https://images.unsplash.com/photo-1517423440428-a5b3e6f1a0b7',
-      price: 20.00,
+      price: 70000,
       tags: ['arts', 'local', 'exhibition'],
       attendees: 500,
       organizer: {
@@ -122,7 +122,7 @@ export const events: Event[] = [
       location: 'Riverfront Park',
       category: 'food',
       image: 'https://images.unsplash.com/photo-1514516878676-dbc69c6a09d2',
-      price: 10.00,
+      price: 10000,
       tags: ['food', 'festival', 'trucks'],
       attendees: 800,
       organizer: {
@@ -141,7 +141,7 @@ export const events: Event[] = [
       location: 'Tech Convention Center',
       category: 'technology',
       image: 'https://images.unsplash.com/photo-1564866701623-f7f8b2c5a1a9',
-      price: 120.00,
+      price: 120000,
       tags: ['technology', 'expo', 'innovation'],
       attendees: 600,
       organizer: {
@@ -160,7 +160,7 @@ export const events: Event[] = [
        location:'Business Center', 
        category:'business', 
        image:'https://images.unsplash.com/photo-1583508987666-e3b84e9bfc2b', 
-       price:250.00, 
+       price:25000, 
        tags:['business','networking'], 
        attendees:450, 
        organizer:{
@@ -179,7 +179,7 @@ export const events: Event[] = [
        location:'Wellness Center', 
        category:'lifestyle', 
        image:'https://images.unsplash.com/photo-1521010511016-d865fc4dc67c', 
-       price:50.00, 
+       price:50000, 
        tags:['lifestyle','health'], 
        attendees:300, 
        organizer:{
@@ -198,7 +198,7 @@ export const events: Event[] = [
         location:'Mountain Resort',  
         category:'lifestyle',  
         image:'https://images.unsplash.com/photo-1532171462967-b1a39c7f7b88',  
-        price:199.99,  
+        price:19000,  
         tags:['lifestyle','yoga','retreat'],  
         attendees:100,  
         organizer:{
@@ -218,7 +218,7 @@ export const events: Event[] = [
         "location": "Music Academy",
         "category": "music",
         "image": "https://images.unsplash.com/photo-1540563368-eeb5e7d2d8a3",
-        "price": 100.00,
+        "price": 100000,
         "tags": ["music", "camp", "education"],
         "attendees": 50,
         "organizer": {
@@ -236,7 +236,7 @@ export const events: Event[] = [
         "location": "Art Studio",
         "category": "arts",
         "image": "https://images.unsplash.com/photo-1497636653703-b2e64eec30cc",
-        "price": 75.00,
+        "price": 75000,
         "tags": ["arts", "photography", "workshop"],
         "attendees": 25,
         "organizer": {
@@ -254,7 +254,7 @@ export const events: Event[] = [
         "location": "Culinary School",
         "category": "food",
         "image": "https://images.unsplash.com/photo-1595019519192-be170ab6e69e",
-        "price": 85.00,
+        "price": 85000,
         "tags": ["food", "culinary", "class"],
         "attendees": 40,
         "organizer": {
@@ -272,7 +272,7 @@ export const events: Event[] = [
         "location": "Startup Hub",
         "category": "technology",
         "image": "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
-        "price": 40.00,
+        "price": 40000,
         "tags": ["technology", "startup", "pitch"],
         "attendees": 150,
         "organizer": {

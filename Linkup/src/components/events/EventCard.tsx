@@ -43,7 +43,7 @@ export function EventCard({ event, featured }: EventCardProps) {
               <span className="text-sm text-muted-foreground">{event.organizer.name}</span>
             </div>
           </div>
-          <Badge variant="secondary" className="whitespace-nowrap">${event.price}</Badge>
+          <Badge variant="secondary" className="whitespace-nowrap">USh {event.price}</Badge>
         </div>
       </CardHeader>
       <CardContent>
