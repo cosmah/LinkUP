@@ -20,8 +20,8 @@ export function PriceRangeFilter({ value, onChange }: PriceRangeFilterProps) {
         className="mt-2"
       />
       <div className="flex justify-between text-sm text-muted-foreground">
-        <span>${value[0]}</span>
-        <span>${value[1]}</span>
+        <span>Free</span>
+        <span>USh {value[1]} + </span>
       </div>
     </div>
   );

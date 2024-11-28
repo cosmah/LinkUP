@@ -1,6 +1,6 @@
 export const PRICE_RANGE = {
   min: 0,
-  max: 1000,
+  max: 300000,
 };
 
 export const APP_NAME = 'LinkUp';
