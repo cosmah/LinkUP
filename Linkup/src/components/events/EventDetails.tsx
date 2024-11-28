@@ -56,6 +56,7 @@ const EventDetails = ({ featured }: EventDetailsProps) => {
   useEffect(() => {
     // Check if the event is already bookmarked in session storage
     const bookmarkedEvents = JSON.parse(sessionStorage.getItem('bookmarkedEvents') || '[]');
+    console.log("Bookmarked Events in Storage:", bookmarkedEvents); // Debugging line
     setIsBookmarked(bookmarkedEvents.includes(id));
   }, [id]);
 
@@ -66,12 +67,16 @@ const EventDetails = ({ featured }: EventDetailsProps) => {
       // Remove from bookmarks
       const updatedBookmarks = bookmarkedEvents.filter((eventId: string) => eventId !== id);
       sessionStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks));
+      console.log("Updated Bookmarks after Removal:", updatedBookmarks); // Debugging line
       setIsBookmarked(false);
     } else {
       // Add to bookmarks
-      bookmarkedEvents.push(id);
-      sessionStorage.setItem('bookmarkedEvents', JSON.stringify(bookmarkedEvents));
-      setIsBookmarked(true);
+      if (!bookmarkedEvents.includes(id)) { // Prevent duplicates
+        bookmarkedEvents.push(id);
+        sessionStorage.setItem('bookmarkedEvents', JSON.stringify(bookmarkedEvents));
+        console.log("Updated Bookmarks after Addition:", bookmarkedEvents); // Debugging line
+        setIsBookmarked(true);
+      }
     }
   };
 
@@ -103,7 +108,7 @@ const EventDetails = ({ featured }: EventDetailsProps) => {
               <span className="text-sm text-muted-foreground">{event.organizer.name}</span>
             </div>
           </div>
-          <Badge variant="secondary" className="whitespace-nowrap">${event.price}</Badge>
+          <Badge variant="secondary" className="whitespace-nowrap">USh {event.price}</Badge>
         </div>
       </CardHeader>
       <CardContent>
