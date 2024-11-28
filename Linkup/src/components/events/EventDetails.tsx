@@ -9,8 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { Calendar, MapPin, Clock, Tag, Users, Star } from "lucide-react";
@@ -24,27 +22,6 @@ interface EventDetailsProps {
   featured?: boolean;
 }
 
-const shareToPlatform = (platform: string) => {
-  const url = window.location.href;
-  const text = "Check out this event!";
-  let shareUrl = "";
-
-  switch (platform) {
-    case "facebook":
-      shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-      break;
-    case "twitter":
-      shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
-      break;
-    case "linkedin":
-      shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`;
-      break;
-    default:
-      break;
-  }
-
-  window.open(shareUrl, "_blank");
-};
 
 const EventDetails = ({ featured }: EventDetailsProps) => {
   const { id } = useParams<{ id: string }>();
