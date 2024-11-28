@@ -9,26 +9,23 @@ import { events } from '@/data/events';
 import { EventFilters as EventFiltersType } from '@/types/event';
 import { PRICE_RANGE } from '@/lib/constants';
 import EventDetails from '@/components/events/EventDetails';
-import Registeration from './components/auth/signUp/Registeration'; // Corrected import path
+import Registeration from './components/auth/signUp/Registeration';
 import Login from './components/auth/signIn/Login';
 import { AuthProvider } from '@/context/AuthContext';
 import Profile from './components/user/Profile';
 import { useMediaQuery } from 'react-responsive';
 
 function App() {
-  // Popup for event categories
   const [showPopup, setShowPopup] = useState(true);
   const [userInterests, setUserInterests] = useState<string[]>([]);
 
   useEffect(() => {
-    // Show popup on page load
     setShowPopup(true);
   }, []);
 
   const handlePopupClose = (selectedCategories: string[]) => {
-    setUserInterests(selectedCategories);
+    setUserInterests(selectedCategories); // Normalized categories already handled in EventPopup
     setShowPopup(false);
-    // Optionally, send selectedCategories to the backend
   };
 
   const [filters, setFilters] = useState<EventFiltersType>({
@@ -39,17 +36,26 @@ function App() {
   });
 
   const filteredEvents = events.filter((event) => {
-    const matchesSearch = event.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+    const matchesSearch =
+      filters.search === '' || 
+      event.title.toLowerCase().includes(filters.search.toLowerCase()) || 
       event.description.toLowerCase().includes(filters.search.toLowerCase());
-    const matchesCategory = filters.category ? event.category === filters.category : true;
-    const matchesPrice = event.price >= filters.priceRange[0] && event.price <= filters.priceRange[1];
-    const matchesDate = !filters.dateRange[0] || !filters.dateRange[1] ? true :
-      new Date(event.date) >= filters.dateRange[0] && new Date(event.date) <= filters.dateRange[1];
 
-    return matchesSearch && matchesCategory && matchesPrice && matchesDate;
+    const matchesCategory = !filters.category || event.category === filters.category;
+
+    const matchesPrice =
+      event.price >= filters.priceRange[0] && event.price <= filters.priceRange[1];
+
+    const matchesDate =
+      !filters.dateRange[0] || !filters.dateRange[1] ||
+      (new Date(event.date) >= filters.dateRange[0] && new Date(event.date) <= filters.dateRange[1]);
+
+    const matchesUserInterests =
+      userInterests.length === 0 || userInterests.includes(event.category);
+
+    return matchesSearch && matchesCategory && matchesPrice && matchesDate && matchesUserInterests;
   });
 
-  // Define media queries
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const isTablet = useMediaQuery({ query: '(min-width: 769px) and (max-width: 1024px)' });
 
@@ -62,9 +68,11 @@ function App() {
           
           <Routes>
             <Route path="/" element={
+            
               <>
-                <FeaturedEvents events={events} />
-
+                {/* Show FeaturedEvents only if no user interests are selected */}
+                {userInterests.length === 0 && <FeaturedEvents events={events} />}
+            
                 <main className={`container mx-auto ${isMobile ? 'px-2' : 'px-4'} py-8`}>
                   <section id="explore" className="space-y-8">
                     <h2 className={`text-${isMobile ? '2xl' : '3xl'} font-bold`}>Explore Events</h2>
@@ -73,7 +81,7 @@ function App() {
                       filters={filters}
                       onFiltersChange={setFilters}
                     />
-
+            
                     <div className={`grid grid-cols-1 ${isTablet ? 'md:grid-cols-2' : 'lg:grid-cols-3'} gap-6`}>
                       {filteredEvents.map((event) => (
                         <EventCard key={event.id} event={event} />
@@ -89,6 +97,8 @@ function App() {
                 </main>
               </>
             } />
+            
+           
             <Route path="/event-details/:id" element={<EventDetails />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Registeration />} />

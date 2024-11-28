@@ -28,8 +28,11 @@ const EventPopup: React.FC<EventPopupProps> = ({ onClose }) => {
   };
 
   const handleSubmit = () => {
-    onClose(selectedCategories);
+    const normalizedCategories = selectedCategories.map(category => category.toLowerCase());
+    onClose(normalizedCategories);
   };
+  
+
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
