@@ -42,7 +42,7 @@ function App() {
   }, []);
 
   const handlePopupClose = (selectedCategories: string[]) => {
-    setUserInterests(selectedCategories); // Normalized categories already handled in EventPopup
+    setUserInterests(selectedCategories);
     setShowPopup(false);
   };
 
@@ -57,8 +57,9 @@ function App() {
 
   const filteredEvents = events.filter((event) => {
     const matchesSearch =
-      filters.search === '' || 
+      filters.search === '' ||
       event.title.toLowerCase().includes(filters.search.toLowerCase()) || 
+      event.location?.toLowerCase().includes(filters.search.toLowerCase()) || // Filter by location
       event.description.toLowerCase().includes(filters.search.toLowerCase());
 
     const matchesCategory = !filters.category || event.category === filters.category;
