@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import EventPopup from './EventPopup';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from '@/components/layout/Header';
 import { EventFilters } from '@/components/filters/EventFilters';
@@ -15,6 +16,21 @@ import Profile from './components/user/Profile';
 import { useMediaQuery } from 'react-responsive';
 
 function App() {
+  // Popup for event categories
+  const [showPopup, setShowPopup] = useState(true);
+  const [userInterests, setUserInterests] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Show popup on page load
+    setShowPopup(true);
+  }, []);
+
+  const handlePopupClose = (selectedCategories: string[]) => {
+    setUserInterests(selectedCategories);
+    setShowPopup(false);
+    // Optionally, send selectedCategories to the backend
+  };
+
   const [filters, setFilters] = useState<EventFiltersType>({
     search: '',
     category: null,
@@ -36,11 +52,12 @@ function App() {
   // Define media queries
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const isTablet = useMediaQuery({ query: '(min-width: 769px) and (max-width: 1024px)' });
-  
+
   return (
     <AuthProvider>
       <Router>
         <div className="min-h-screen bg-background">
+          {showPopup && <EventPopup onClose={handlePopupClose} />}
           <Header />
           
           <Routes>
