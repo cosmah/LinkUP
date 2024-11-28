@@ -3,13 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Users } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
 import { useAuth } from "@/context/AuthContext";
-import { useMediaQuery } from 'react-responsive';
-import { useState } from 'react';
+import { useMediaQuery } from "react-responsive";
+import { useState } from "react";
+import { User } from "lucide-react";
 
 export function Header() {
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
-  
+
   // State to manage mobile menu visibility
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -27,7 +28,7 @@ export function Header() {
   };
 
   // Media query for mobile devices
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -43,11 +44,11 @@ export function Header() {
           {/* Hamburger Menu for Mobile */}
           {isMobile ? (
             <>
-              <button 
-                className="text-primary focus:outline-none" 
+              <button
+                className="text-primary focus:outline-none"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                {isMenuOpen ? '✖' : '☰'}
+                {isMenuOpen ? "✖" : "☰"}
               </button>
             </>
           ) : (
@@ -63,11 +64,29 @@ export function Header() {
         {/* Mobile Menu */}
         {isMobile && isMenuOpen && (
           <nav className="flex flex-col mt-4 space-y-2">
-            <Link to="#explore" onClick={() => setIsMenuOpen(false)}>Explore</Link>
-            <Link to="#featured" onClick={() => setIsMenuOpen(false)}>Featured</Link>
-            <Button onClick={handleCreateEventClick} className="w-full">Create Event</Button>
+            <Link to="#explore" onClick={() => setIsMenuOpen(false)}>
+              Explore
+            </Link>
+            <Link to="#featured" onClick={() => setIsMenuOpen(false)}>
+              Featured
+            </Link>
+            <div className="flex items-center space-x-4">
+              {isLoggedIn && (
+                <Link to="/profile" className="w-full">
+                  <Button className="w-full flex items-center justify-center">
+                    <User className="w-4 h-4 mr-2" />
+                    User Profile
+                  </Button>
+                </Link>
+              )}
+              <Button onClick={handleCreateEventClick} className="w-full">
+                Create Event
+              </Button>
+            </div>
             {isLoggedIn && (
-              <Button onClick={handleLogout} className="w-full">Logout</Button>
+              <Button onClick={handleLogout} className="w-full">
+                Logout
+              </Button>
             )}
           </nav>
         )}
