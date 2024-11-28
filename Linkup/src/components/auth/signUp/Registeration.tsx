@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert } from '@/components/ui/alert';
+import { createUser } from '../../../context/api'; // Import the createUser function
 
 const Registeration = () => {
   const [name, setName] = useState('');
@@ -13,7 +14,7 @@ const Registeration = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -23,11 +24,12 @@ const Registeration = () => {
       return;
     }
 
-    // Mock signup logic
-    if (email === 'user@example.com') {
-      setError('Email already in use');
-    } else {
-      navigate('/user-profile'); // Redirect to dashboard on successful signup
+    try {
+      // Call the createUser function to make an API request
+      await createUser({ name, email, password });
+      navigate('/user-profile'); // Redirect to user profile on successful signup
+    } catch (error) {
+      setError('Failed to sign up. Please try again.');
     }
   };
 

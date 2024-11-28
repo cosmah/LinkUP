@@ -8,7 +8,7 @@ import { events } from '@/data/events';
 import { EventFilters as EventFiltersType } from '@/types/event';
 import { PRICE_RANGE } from '@/lib/constants';
 import EventDetails from '@/components/events/EventDetails';
-import Registeration from './components/auth/signOut.tsx/Registeration';
+import Registeration from './components/auth/signUp/Registeration'; // Corrected import path
 import Login from './components/auth/signIn/Login';
 import { AuthProvider } from '@/context/AuthContext';
 import Profile from './components/user/Profile';

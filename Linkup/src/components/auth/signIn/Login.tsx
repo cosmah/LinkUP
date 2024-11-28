@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAuth } from '@/context/AuthContext';
+import { getUserByEmail } from '../../../context/api'; // Import the getUserByEmail function
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,16 +15,26 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
     if (!email || !password) {
       setError('Please fill in all fields');
       return;
     }
-    if (email === 'user@example.com' && password === 'password') {
-      login(email);
-      navigate('/user-profile');
+
+    try {
+      // Call the getUserByEmail function to make an API request
+      const user = await getUserByEmail(email);
+      if (user && user.password === password) {
+        login(email);
+        navigate('/user-profile');
+      } else {
+        setError('Invalid email or password');
+      }
+    } catch (error) {
+      setError('Failed to log in. Please try again.');
     }
   };
 
