@@ -1,9 +1,7 @@
 [build]
 command = "npm run build"
 publish = "Linkup/build"
-base = "Linkup"
-
-
+base = "LinkUP"  # Corrected directory name
 
 [[redirects]]
   from = "/*"
