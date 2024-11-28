@@ -12,6 +12,7 @@ import Registeration from './components/auth/signOut.tsx/Registeration';
 import Login from './components/auth/signIn/Login';
 import { AuthProvider } from '@/context/AuthContext';
 import Profile from './components/user/Profile';
+import { useMediaQuery } from 'react-responsive';
 
 function App() {
   const [filters, setFilters] = useState<EventFiltersType>({
@@ -32,6 +33,10 @@ function App() {
     return matchesSearch && matchesCategory && matchesPrice && matchesDate;
   });
 
+  // Define media queries
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const isTablet = useMediaQuery({ query: '(min-width: 769px) and (max-width: 1024px)' });
+  
   return (
     <AuthProvider>
       <Router>
@@ -43,16 +48,16 @@ function App() {
               <>
                 <FeaturedEvents events={events} />
 
-                <main className="container mx-auto px-4 py-8">
+                <main className={`container mx-auto ${isMobile ? 'px-2' : 'px-4'} py-8`}>
                   <section id="explore" className="space-y-8">
-                    <h2 className="text-3xl font-bold">Explore Events</h2>
+                    <h2 className={`text-${isMobile ? '2xl' : '3xl'} font-bold`}>Explore Events</h2>
                     
                     <EventFilters
                       filters={filters}
                       onFiltersChange={setFilters}
                     />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className={`grid grid-cols-1 ${isTablet ? 'md:grid-cols-2' : 'lg:grid-cols-3'} gap-6`}>
                       {filteredEvents.map((event) => (
                         <EventCard key={event.id} event={event} />
                       ))}

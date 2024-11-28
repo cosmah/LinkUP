@@ -14,6 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Camera, Mail, User, Lock, Bell, Shield } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useMediaQuery } from 'react-responsive';
 
 const Profile = () => {
   const { user, logout } = useAuth();
@@ -48,10 +49,13 @@ const Profile = () => {
     setSuccess("Profile updated successfully");
   };
 
+  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       <div className="max-w-6xl mx-auto p-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className={`grid grid-cols-1 ${isDesktopOrLaptop ? 'md:grid-cols-4' : ''} gap-6`}>
           {/* Sidebar */}
           <Card className="md:col-span-1 h-fit">
             <CardContent className="p-6">
@@ -73,7 +77,7 @@ const Profile = () => {
           {/* Main Content */}
           <div className="md:col-span-3">
             <Tabs defaultValue="profile" className="space-y-6">
-              <TabsList className="bg-white/50 backdrop-blur">
+              <TabsList className="bg-white/50 backdrop-blur flex justify-center">
                 <TabsTrigger value="profile">
                   <User className="w-4 h-4 mr-2" />
                   Profile
@@ -144,7 +148,7 @@ const Profile = () => {
                           onChange={handleChange}
                           className="h-12 w-full rounded-md border bg-background p-3"
                         >
-                          <option value="">Select Religion</option>
+                          <option value="">Select Gender</option>
                           <option value="male">Male</option>
                           <option value="female">Female</option>
                           <option value="other">Other</option>
@@ -154,12 +158,12 @@ const Profile = () => {
                       <div className="space-y-2">
                         <Label htmlFor="religion">Religion</Label>
                         <select
-                          id="gender"
-                          value={formData.gender}
+                          id="religion"
+                          value={formData.religion}
                           onChange={handleChange}
                           className="h-12 w-full rounded-md border bg-background p-3"
                         >
-                          <option value="">Select Gender</option>
+                          <option value="">Select Religion</option>
                           <option value="catholic">Catholic</option>
                           <option value="anglican">Anglican</option>
                           <option value="islam">Islam</option>
@@ -229,19 +233,6 @@ const Profile = () => {
                       />
                     </div>
                     <Button className="w-full">Update Password</Button>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="notifications">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Notification Preferences</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-500">
-                      Notification settings coming soon...
-                    </p>
                   </CardContent>
                 </Card>
               </TabsContent>
