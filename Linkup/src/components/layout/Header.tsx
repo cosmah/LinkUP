@@ -1,3 +1,4 @@
+// src/components/layout/Header.tsx
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Users, User } from "lucide-react";
@@ -74,12 +75,10 @@ export function Header() {
               Featured
             </Button>
             <div className="flex items-center space-x-4">
-              {isLoggedIn && (
-                <Button onClick={() => { handleNavigate("/user-profile"); setIsMenuOpen(false); }} className="w-full flex items-center justify-center">
-                  <User className="w-4 h-4 mr-2" />
-                  User Profile
-                </Button>
-              )}
+              <Button onClick={() => { handleCreateEventClick(); setIsMenuOpen(false); }} className="w-full flex items-center justify-center">
+                <User className="w-4 h-4 mr-2" />
+                User Profile
+              </Button>
             </div>
             {isLoggedIn && (
               <Button onClick={handleLogout} className="w-full">

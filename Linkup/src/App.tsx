@@ -1,3 +1,4 @@
+// src/App.tsx
 import { useEffect, useState } from 'react';
 import EventPopup from './EventPopup';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
@@ -14,6 +15,7 @@ import Login from './components/auth/signIn/Login';
 import { AuthProvider } from '@/context/AuthContext';
 import Profile from './components/user/Profile';
 import { useMediaQuery } from 'react-responsive';
+import ProtectedRoute from '@/components/ProtectedRoute'; // Import the ProtectedRoute
 
 function ScrollToSection() {
   const location = useLocation();
@@ -122,7 +124,16 @@ function App() {
             <Route path="/event-details/:id" element={<EventDetails />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Registeration />} />
-            <Route path='/user-profile' element={<Profile />} />
+            
+            {/* Protect the Profile Route */}
+            <Route 
+              path='/user-profile' 
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              } 
+            />
           </Routes>
         </div>
       </Router>
