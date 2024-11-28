@@ -1,4 +1,4 @@
 [build]
   base = "Linkup"
   command = "npm run build"
-  publish = "build"
+  publish = "Linkup/build"
