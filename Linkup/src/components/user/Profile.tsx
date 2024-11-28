@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -15,12 +15,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Camera, Mail, User, Lock, Bell, Shield } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useMediaQuery } from 'react-responsive';
+import { getUserByEmail, getUserDemographicsByUserId, updateUserDemographicsByUserId } from '../../context/api'; // Corrected import path
 
 const Profile = () => {
   const { user, logout } = useAuth();
   const [formData, setFormData] = useState({
-    name: "John Doe",
-    email: user?.email || "john.doe@example.com",
+    name: "",
+    email: user?.email || "",
     dob: "",
     gender: "",
     religion: "",
@@ -31,6 +32,30 @@ const Profile = () => {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await getUserByEmail(user?.email || "");
+        const demographicsData = await getUserDemographicsByUserId(userData.id);
+        setFormData({
+          name: userData.name,
+          email: userData.email,
+          dob: demographicsData.date_of_birth,
+          gender: demographicsData.gender,
+          religion: demographicsData.religion,
+          address: demographicsData.address,
+          password: "",
+          newPassword: "",
+          confirmPassword: "",
+        });
+      } catch (error) {
+        setError("Failed to fetch user data");
+      }
+    };
+
+    fetchUserData();
+  }, [user?.email]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -43,10 +68,22 @@ const Profile = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setSuccess("Profile updated successfully");
+    setSuccess("");
+
+    try {
+      await updateUserDemographicsByUserId(user?.id || 0, {
+        date_of_birth: formData.dob,
+        gender: formData.gender,
+        religion: formData.religion,
+        address: formData.address,
+      });
+      setSuccess("Profile updated successfully");
+    } catch (error) {
+      setError("Failed to update profile");
+    }
   };
 
   const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
