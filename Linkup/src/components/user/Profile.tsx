@@ -16,7 +16,7 @@ const Profile: React.FC = () => {
   const { user } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [error, setError] = useState<string>("");
+  const [, setError] = useState<string>("");
   const [bookmarkedEvents, setBookmarkedEvents] = useState<any[]>([]); // State to hold bookmarked events
 
   useEffect(() => {
