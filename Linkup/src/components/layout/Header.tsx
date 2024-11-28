@@ -72,7 +72,7 @@ export function Header() {
             </Link>
             <div className="flex items-center space-x-4">
               {isLoggedIn && (
-                <Link to="/profile" className="w-full">
+                <Link to="/user-profile" className="w-full">
                   <Button className="w-full flex items-center justify-center">
                     <User className="w-4 h-4 mr-2" />
                     User Profile
