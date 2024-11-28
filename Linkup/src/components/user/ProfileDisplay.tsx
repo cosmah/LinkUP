@@ -9,8 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Camera, Edit } from "lucide-react";
-import {  ProfileDisplayProps } from "./types";
-
+import { ProfileDisplayProps } from "./types";
 
 export const ProfileDisplay: React.FC<ProfileDisplayProps> = ({ userData, onEdit }) => {
   if (!userData) return null;
@@ -39,14 +38,14 @@ export const ProfileDisplay: React.FC<ProfileDisplayProps> = ({ userData, onEdit
           <CardTitle>Profile Information</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <h3 className="font-semibold">Full Name</h3>
               <p className="text-gray-600">{userData.name || 'Not set'}</p>
             </div>
             <div>
               <h3 className="font-semibold">Email</h3>
-              <p className="text-gray-600">{userData.email || 'Not set'}</p>
+              <p className="text-gray-600 break-words">{userData.email || 'Not set'}</p>
             </div>
             <div>
               <h3 className="font-semibold">Date of Birth</h3>
