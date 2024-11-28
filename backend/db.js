@@ -12,8 +12,15 @@ const db = new sqlite3.Database(path.join(__dirname, 'event_suggestion.db'), (er
             name TEXT,
             email TEXT UNIQUE,
             password TEXT,
-            demographics TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )`);
+        db.run(`CREATE TABLE IF NOT EXISTS user_demographics (
+            user_id INTEGER,
+            date_of_birth TEXT,
+            gender TEXT,
+            religion TEXT,
+            address TEXT,
+            FOREIGN KEY(user_id) REFERENCES users(id)
         )`);
     }
 });
